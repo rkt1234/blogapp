@@ -20,7 +20,8 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.red)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -32,13 +33,15 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               SizedBox(
                 height: 300,
                 width: double.infinity,
                 child: ClipRRect(
                   child: Image.network(
-                    fit: BoxFit.cover,
+                      fit: BoxFit.cover,
                       "https://media.gettyimages.com/id/1492656400/photo/chennai-india-mahendra-singh-dhoni-of-chennai-super-kings-catches-their-helmet-whilst.jpg?s=612x612&w=gi&k=20&c=JbYno-lPxLLeKkCy4sa9TYJ1IMPDFMNVO0VF1xgqYCM="),
                 ),
               ),
@@ -51,7 +54,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
                 overflow: TextOverflow.ellipsis,
                 style: blogTitleStyle,
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Flexible(

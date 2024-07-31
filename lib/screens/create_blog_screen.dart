@@ -1,4 +1,3 @@
-import 'package:blogapp/widgets/custom_auth_textfield.dart';
 import 'package:blogapp/widgets/custom_blog_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +24,12 @@ class _CreateBlogState extends State<CreateBlog> {
             const SizedBox(
               height: 20,
             ),
-            Container(padding: const EdgeInsets.symmetric(horizontal: 10),child: const BlogCustomTextField(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.red),
                   borderRadius: BorderRadius.circular(10)),
+              child: BlogCustomTextField(),
             ),
             const SizedBox(
               height: 20,
@@ -36,8 +37,10 @@ class _CreateBlogState extends State<CreateBlog> {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.circular(10)),
-              child: const BlogCustomTextField(),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(10)),
+                child: BlogCustomTextField(),
               ),
             ),
           ],

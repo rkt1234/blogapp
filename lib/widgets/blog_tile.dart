@@ -29,7 +29,7 @@ class _BlogTileState extends State<BlogTile> {
           const SizedBox(
             width: 10,
           ),
-           Flexible(
+          Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,17 +39,23 @@ class _BlogTileState extends State<BlogTile> {
                   overflow: TextOverflow.ellipsis,
                   style: blogTitleStyle,
                 ),
-                 Text(
+                Text(
                   random,
                   maxLines: 4,
                   overflow: TextOverflow.fade,
                   style: blogDescriptionStyle,
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 const Row(
                   children: [
-                    CircleAvatar(radius: 10,),
-                    SizedBox(width: 10,),
+                    CircleAvatar(
+                      radius: 10,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text("Author")
                   ],
                 )

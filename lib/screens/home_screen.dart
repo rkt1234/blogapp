@@ -11,12 +11,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {},
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add,color: Colors.black,),
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -31,11 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Spacer(),
                   const Text("rest_less"),
                   const Spacer(),
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.logout))
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
                 ],
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Flexible(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
