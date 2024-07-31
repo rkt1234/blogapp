@@ -25,7 +25,6 @@ class _BlogTileState extends State<BlogTile> {
                 fit: BoxFit.cover,
                 "https://media.gettyimages.com/id/1492656400/photo/chennai-india-mahendra-singh-dhoni-of-chennai-super-kings-catches-their-helmet-whilst.jpg?s=612x612&w=gi&k=20&c=JbYno-lPxLLeKkCy4sa9TYJ1IMPDFMNVO0VF1xgqYCM="),
           ),
-          // const Spacer(),
           const SizedBox(
             width: 10,
           ),
@@ -38,11 +37,19 @@ class _BlogTileState extends State<BlogTile> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-               Text(
+                Text(
                   random,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
+                SizedBox(height: 8,),
+                Row(
+                  children: [
+                    CircleAvatar(radius: 10,),
+                    SizedBox(width: 10,),
+                    Text("Author")
+                  ],
+                )
               ],
             ),
           )

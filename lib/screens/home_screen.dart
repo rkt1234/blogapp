@@ -12,6 +12,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -32,8 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20,),
             Flexible(
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 2,
+                itemCount: 20,
                 itemBuilder: (context, index) {
                   return const BlogTile();
                 },

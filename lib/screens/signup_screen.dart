@@ -37,6 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
               InkWell(child: CircleAvatar(radius: height*.05,)),
               const CustomTextField(),
               const CustomTextField(),
+              const CustomTextField(),
               const CustomElevatedButton(),
               Container(
                   margin:
