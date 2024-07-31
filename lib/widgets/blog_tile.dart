@@ -1,4 +1,5 @@
 import 'package:blogapp/utils/constants.dart';
+import 'package:blogapp/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class BlogTile extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BlogTileState extends State<BlogTile> {
           const SizedBox(
             width: 10,
           ),
-          const Flexible(
+           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,14 +37,16 @@ class _BlogTileState extends State<BlogTile> {
                   "title",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: blogTitleStyle,
                 ),
-                Text(
+                 Text(
                   random,
                   maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.fade,
+                  style: blogDescriptionStyle,
                 ),
-                SizedBox(height: 8,),
-                Row(
+                const SizedBox(height: 8,),
+                const Row(
                   children: [
                     CircleAvatar(radius: 10,),
                     SizedBox(width: 10,),

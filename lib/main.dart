@@ -1,6 +1,7 @@
+import 'package:blogapp/screens/create_blog_screen.dart';
 import 'package:blogapp/screens/home_screen.dart';
-import 'package:blogapp/screens/signin_screen.dart';
 import 'package:blogapp/screens/signup_screen.dart';
+import 'package:blogapp/screens/view_blog_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +18,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const HomeScreen();
+    return const ViewBlogScreen();
   }
 }

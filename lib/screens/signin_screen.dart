@@ -1,7 +1,7 @@
 import 'package:blogapp/utils/constants.dart';
 import 'package:blogapp/utils/text_style.dart';
 import 'package:blogapp/widgets/custom_elevatedbutton.dart';
-import 'package:blogapp/widgets/custom_textfield.dart';
+import 'package:blogapp/widgets/custom_auth_textfield.dart';
 import 'package:flutter/material.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _SigninScreenState extends State<SigninScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text(appHeader, style: titleStyle),
+          child: Text(appHeader, style: appTitleStyle),
         ),
       ),
       body: Center(
@@ -34,8 +34,12 @@ class _SigninScreenState extends State<SigninScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text("Register"),
-              const CustomTextField(),
-              const CustomTextField(),
+               AuthCustomTextField(labelText: 'E-mail',
+                labelStyle: authenticationFormStyle,
+              ),
+               AuthCustomTextField(labelText: 'Password',
+                labelStyle: authenticationFormStyle,
+              ),
               const CustomElevatedButton(),
               Container(
                   margin:
