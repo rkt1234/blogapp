@@ -19,7 +19,6 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Consumer<SigninProvider>(builder: (context, provider, child) {
       return Scaffold(
         appBar: AppBar(
