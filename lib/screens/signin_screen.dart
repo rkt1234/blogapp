@@ -1,8 +1,13 @@
 import 'package:blogapp/provider/signin_provider.dart';
+import 'package:blogapp/screens/home_screen.dart';
+import 'package:blogapp/services/navigation.dart';
 import 'package:blogapp/utils/constants.dart';
 import 'package:blogapp/utils/text_style.dart';
-import 'package:blogapp/widgets/custom_elevatedbutton.dart';
 import 'package:blogapp/widgets/custom_auth_textfield.dart';
+import 'package:blogapp/widgets/custom_elevatedbutton.dart';
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,9 +73,30 @@ class _SigninScreenState extends State<SigninScreen> {
                       style: authenticationFormStyle,
                     ),
                     InkWell(
-                      onTap: () {
-                        provider.checkValidity(
+                      onTap: () async {
+                        bool navigate=await provider.checkValidity(
                             emailController.text, passwordController.text);
+                        DelightToastBar(
+                          autoDismiss: true,
+                          snackbarDuration: const Duration(milliseconds: 1000),
+                          position: DelightSnackbarPosition.top,
+                          builder: (context) => ToastCard(
+                            leading: const Icon(
+                              Icons.flutter_dash,
+                              size: 28,
+                            ),
+                            title: Text(
+                              provider.toastMessage,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ).show(context);
+                        if(navigate) {
+                          pushReplacement(context, const HomeScreen());
+                        }
                       },
                       child: Text(
                         " Signup",

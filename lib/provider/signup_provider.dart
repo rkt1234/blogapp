@@ -13,7 +13,7 @@ class SignupProvider extends ChangeNotifier {
 
     if(emailError== null && usernameError==null && passwordError==null)
     {
-      Map<String,String> user = UserModel(userName: userName, password: password, email: email, imageUrl: "imageUrl").toJson();
+      Map<String,String> user = UserModel(userName: userName, password: password, email: email, imageUrl: "imageUrl").toJsonRegister();
     }
 
     notifyListeners();

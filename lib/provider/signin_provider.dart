@@ -1,18 +1,36 @@
+
+
+import 'dart:convert';
+
+import 'package:blogapp/services/call.dart';
 import 'package:flutter/material.dart';
 
 class SigninProvider extends ChangeNotifier {
   dynamic emailError;
   dynamic passwordError;
+  dynamic response;
 
-  void checkValidity(email, password) async{
+  String toastMessage = "";
+
+  Future<bool> checkValidity(email, password) async{
+    late bool isNavigate;
+    print("hello here");
     emailError = email == "" ? "Please enter an email" : null;
     passwordError = password == "" ? "Please enter a password" : null;
     if(emailError == null && passwordError == null){
-      print(emailError);
-      print(passwordError);
+      response = await call(email, password);
+      print("hello here");
+      print(jsonDecode(response.body)['message']);
+      if(response.statusCode==200) {
+        toastMessage = jsonDecode(response.body)['message'];
+        isNavigate=true;
+      } else {
+        toastMessage = jsonDecode(response.body)['message'];
+        isNavigate=false;
+      }
     }
-          print(email);
-    print(password);
+    print(toastMessage);
     notifyListeners();
+    return isNavigate;
   }
 }
