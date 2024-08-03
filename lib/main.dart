@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     String? token = widget.prefs.getString('jwt_token');
     if (token == null || JwtDecoder.isExpired(token)) {
-      return const SignupScreen();
+      return const SigninScreen();
     } else {
       return HomeScreen(token: token);
     }

@@ -1,4 +1,6 @@
+import 'package:blogapp/models/blog.dart';
 import 'package:blogapp/screens/signin_screen.dart';
+import 'package:blogapp/services/blog_api_service.dart';
 import 'package:blogapp/services/navigation_service.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     initSharedPreferences();
-    Map<String, dynamic> jwtDecoded = JwtDecoder.decode(widget.token,);
+    Map<String, dynamic> jwtDecoded = JwtDecoder.decode(
+      widget.token,
+    );
     userName = jwtDecoded['username'];
+    // fetchBlogs();
+  }
+
+  void fetchBlogs() {
+    getBlog();
   }
 
   void initSharedPreferences() async {
@@ -64,15 +73,28 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             Flexible(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return const BlogTile();
-                },
-              ),
-            )
+                child: FutureBuilder<List<Blog>>(
+              future: getBlog(),
+              builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No posts found'));
+                }
+                else{
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return  BlogTile(description: snapshot.data![index].description, title: snapshot.data![index].title);
+                    },
+                  );
+                }
+              },
+            ))
           ],
         ),
       ),

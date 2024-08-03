@@ -3,7 +3,9 @@ import 'package:blogapp/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class BlogTile extends StatefulWidget {
-  const BlogTile({super.key});
+  final String title;
+  final String description;
+   BlogTile({super.key, required this.title, required this.description});
 
   @override
   State<BlogTile> createState() => _BlogTileState();
@@ -34,13 +36,13 @@ class _BlogTileState extends State<BlogTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "title",
+                  widget.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: blogTitleStyle,
                 ),
                 Text(
-                  random,
+                  widget.description,
                   maxLines: 4,
                   overflow: TextOverflow.fade,
                   style: blogDescriptionStyle,
