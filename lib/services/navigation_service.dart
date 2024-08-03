@@ -6,3 +6,12 @@ void pushReplacement(BuildContext context, Widget widget) {
     MaterialPageRoute(builder: (context) => widget),
   );
 }
+void push(BuildContext context, Widget widget) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => widget),
+  );
+}
+void pop(BuildContext context ) {
+  Navigator.pop(context);
+}

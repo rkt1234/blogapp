@@ -1,19 +1,41 @@
+import 'package:blogapp/screens/signin_screen.dart';
+import 'package:blogapp/services/navigation_service.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final token;
+  const HomeScreen({super.key, required this.token});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late String userName;
+  late SharedPreferences pref;
+  @override
+  void initState() {
+    super.initState();
+    initSharedPreferences();
+    Map<String, dynamic> jwtDecoded = JwtDecoder.decode(widget.token,);
+    userName = jwtDecoded['username'];
+  }
+
+  void initSharedPreferences() async {
+    pref = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await pref.remove('jwt_token');
+          pushReplacement(context, const SigninScreen());
+        },
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
         child: const Icon(
@@ -32,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const CircleAvatar(),
                   const Spacer(),
-                  const Text("rest_less"),
+                  Text(userName),
                   const Spacer(),
                   IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
                 ],

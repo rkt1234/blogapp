@@ -1,4 +1,7 @@
 import 'package:blogapp/provider/signup_provider.dart';
+import 'package:blogapp/screens/signin_screen.dart';
+import 'package:blogapp/services/navigation_service.dart';
+import 'package:blogapp/services/toast_service.dart';
 import 'package:blogapp/utils/constants.dart';
 import 'package:blogapp/utils/text_style.dart';
 import 'package:blogapp/widgets/custom_auth_textfield.dart';
@@ -28,71 +31,106 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Text(appHeader, style: appTitleStyle),
           ),
         ),
-        body: Center(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: height * .5,
-            width: height * .45,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.red),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Register",
-                  style: authenticationFormStyle,
-                ),
-                InkWell(
-                    child: CircleAvatar(
-                  radius: height * .05,
-                  backgroundColor:  Colors.grey,
-                )
-                ),
-                AuthCustomTextField(
-                  controller: emailController,
-                  errorText: provider.emailError,
-                  labelText: 'E-mail',
-                  labelStyle: authenticationFormStyle,
-                ),
-                AuthCustomTextField(
-                  controller: usernameController,
-                  errorText: provider.usernameError,
-                    labelText: 'Username', labelStyle: authenticationFormStyle),
-                AuthCustomTextField(
-                  controller: passwordController,
-                  errorText: provider.passwordError,
-                    labelText: 'Password', labelStyle: authenticationFormStyle),
-                const CustomElevatedButton(),
-                Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    height: 1,
-                    width: double.infinity,
-                    color: Colors.grey),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account ? ",
-                      style: authenticationFormStyle,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        provider.checkValidity(emailController.text, usernameController.text, passwordController.text);
-                      },
-                      child: Text(
-                        " Login",
+        body: Stack(
+          children: [
+            Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: height * .5,
+                  width: height * .45,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Register",
                         style: authenticationFormStyle,
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
+                      InkWell(
+                          child: CircleAvatar(
+                        radius: height * .05,
+                        backgroundColor: Colors.grey,
+                      )),
+                      AuthCustomTextField(
+                        controller: emailController,
+                        errorText: provider.emailError,
+                        labelText: 'E-mail',
+                        labelStyle: authenticationFormStyle,
+                      ),
+                      AuthCustomTextField(
+                          controller: usernameController,
+                          errorText: provider.usernameError,
+                          labelText: 'Username',
+                          labelStyle: authenticationFormStyle),
+                      AuthCustomTextField(
+                          controller: passwordController,
+                          errorText: provider.passwordError,
+                          labelText: 'Password',
+                          labelStyle: authenticationFormStyle),
+                      ElevatedButton(
+                        onPressed: () async {
+                          bool navigate = await provider.checkValidity(
+                                  emailController.text,
+                                  usernameController.text,
+                                  passwordController.text);
+                              getToast(context, provider.toastMessage,
+                                  provider.icon);
+                              if (navigate) {
+                                print(provider.jwt);
+                                pushReplacement(context, const SigninScreen());
+                              }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue, // Button text color
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(12), // Rounded corners
+                          ),
+                          elevation: 5, // Button elevation
+                          textStyle: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text("text"),
+                      ),
+                      Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          height: 1,
+                          width: double.infinity,
+                          color: Colors.grey),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account ? ",
+                            style: authenticationFormStyle,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              
+                            },
+                            child: Text(
+                              " Login",
+                              style: authenticationFormStyle,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              provider.isLoading?Center(child: CircularProgressIndicator(),): Container()
+          ],
+        )
       );
       }
     );
