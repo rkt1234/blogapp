@@ -1,5 +1,4 @@
 import 'package:blogapp/provider/create_provider.dart';
-import 'package:blogapp/provider/delete_provider.dart';
 import 'package:blogapp/provider/signin_provider.dart';
 import 'package:blogapp/provider/signup_provider.dart';
 import 'package:blogapp/screens/create_blog_screen.dart';
@@ -19,7 +18,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => SignupProvider()),
         ChangeNotifierProvider(create: (context) => SigninProvider()),
         ChangeNotifierProvider(create: (context) => CreateProvider()),
-        ChangeNotifierProvider(create: (context) => DeleteProvider()),
+        // ChangeNotifierProvider(create: (context) => DeleteProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false, home: MyApp(prefs: prefs))));
