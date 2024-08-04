@@ -31,3 +31,31 @@ Future<dynamic> createBlog(String title, String description, String createdTime,
     print(response.body);
     return response;
 }
+
+Future<List<Blog>> getUserBlog(token) async {
+  Map<String, String> headers = {
+    'uid': uId.toString(),
+  };
+  dynamic response = await http.get(Uri.parse(fetchUserBlogUrl), headers: headers);
+  print(response.body);
+  if (response.statusCode == 200) {
+    print("ye nhi h");
+    Map<String, dynamic> data = json.decode(response.body);
+    List<dynamic> messages = data['message'];
+    return messages.map((json) => Blog.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load posts');
+  }
+}
+
+Future<dynamic> deletePost(postId, token) async {
+  Map<String, int> body = {"postId": postId};
+     Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': token,
+  };
+  dynamic response = await http.delete(Uri.parse(deleteBlogUrl), body: jsonEncode(body), headers: headers);
+  print(response.body);
+  return response;
+
+}

@@ -1,5 +1,6 @@
 import 'package:blogapp/models/blog.dart';
 import 'package:blogapp/screens/create_blog_screen.dart';
+import 'package:blogapp/screens/profile_page.dart';
 import 'package:blogapp/screens/signin_screen.dart';
 import 'package:blogapp/screens/view_blog_screen.dart';
 import 'package:blogapp/services/blog_api_service.dart';
@@ -32,8 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
     imageUrl = jwtDecoded['imageurl'];
   }
 
-
-
   void initSharedPreferences() async {
     pref = await SharedPreferences.getInstance();
   }
@@ -43,8 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          
-          push(context,  CreateBlog(token: widget.token,));
+          push(
+              context,
+              CreateBlog(
+                token: widget.token,
+              ));
         },
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
@@ -62,12 +64,24 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const CircleAvatar(),
+                  InkWell(
+                      onTap: () {
+                        push(
+                            context,
+                            ProfileScreen(
+                              token: widget.token,
+                            ));
+                      },
+                      child: const CircleAvatar()),
                   const Spacer(),
                   Text(userName),
                   const Spacer(),
-                  IconButton(onPressed: () async{await pref.remove('jwt_token');
-          pushReplacement(context, const SigninScreen());}, icon: const Icon(Icons.logout))
+                  IconButton(
+                      onPressed: () async {
+                        await pref.remove('jwt_token');
+                        pushReplacement(context, const SigninScreen());
+                      },
+                      icon: const Icon(Icons.logout))
                 ],
               ),
             ),
@@ -83,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (snapshot.hasError) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('Looks like it is empty here'));
+                  return const Center(
+                      child: Text('Looks like it is empty here'));
                 } else {
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -95,12 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           push(context, ViewBlogScreen());
                         },
                         child: BlogTile(
-                            description: snapshot.data![index].description,
-                            title: snapshot.data![index].title,
-                            authorName: snapshot.data![index].authorName,
-                            ),
+                          description: snapshot.data![index].description,
+                          title: snapshot.data![index].title,
+                          authorName: snapshot.data![index].authorName,
+                        ),
                       );
-                          
                     },
                   );
                 }

@@ -24,19 +24,15 @@ class _CreateBlogState extends State<CreateBlog> {
     return Consumer<CreateProvider>(builder: (context, provider, child) {
       return Scaffold(
           appBar:
-              AppBar(title: const Text("Create a new blog"), centerTitle: true),
+              AppBar(title: const Text("Create a new blog"), centerTitle: true, automaticallyImplyLeading: false,),
           body: Stack(
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    
-                    // const CircleAvatar(
-                    //   radius: 50,
-                    // ),
                     SizedBox(
                       height: 200,
                       width: double.infinity,
