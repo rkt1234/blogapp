@@ -2,12 +2,16 @@ import 'dart:convert';
 
 import 'package:blogapp/models/blog.dart';
 import 'package:blogapp/utils/api_urls.dart';
+import 'package:blogapp/utils/configs.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Blog>> getBlog() async{
-  dynamic response = await http.get(Uri.parse(fetchBlogUrl));
+Future<List<Blog>> getBlog(token) async{
+  Map<String, String> headers = {
+    'uid': uId.toString(),
+  };
+  dynamic response = await http.get(Uri.parse(fetchBlogUrl), headers: headers);
   print(response.body);
-   if (response.statusCode == 401) {
+   if (response.statusCode == 200) {
     print("ye nhi h");
     Map<String, dynamic> data = json.decode(response.body);
     List<dynamic> messages = data['message'];
@@ -15,4 +19,15 @@ Future<List<Blog>> getBlog() async{
   } else {
     throw Exception('Failed to load posts');
   }
+}
+
+Future<dynamic> createBlog(String title, String description, String createdTime, String imageUrl, int userId, String token, String authorName, String authorImageUrl) async {
+  Map<String,dynamic> body = Blog(title: title, description: description, createdTime: createdTime, imageUrl: imageUrl, userId: userId, postId: 0, authorImageUrl: "authorImageUrl", authorName: authorName).toJsonLogin();
+   Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': token,
+    };
+    dynamic response = await http.post(Uri.parse(createBlogUrl), body: jsonEncode(body), headers: headers);
+    print(response.body);
+    return response;
 }

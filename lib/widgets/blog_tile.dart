@@ -1,11 +1,11 @@
-import 'package:blogapp/utils/constants.dart';
 import 'package:blogapp/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class BlogTile extends StatefulWidget {
   final String title;
   final String description;
-   BlogTile({super.key, required this.title, required this.description});
+  final String authorName;
+   const BlogTile({super.key, required this.title, required this.description, required this.authorName});
 
   @override
   State<BlogTile> createState() => _BlogTileState();
@@ -50,15 +50,15 @@ class _BlogTileState extends State<BlogTile> {
                 const SizedBox(
                   height: 8,
                 ),
-                const Row(
+                 Row(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 10,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Text("Author")
+                    Text(widget.authorName)
                   ],
                 )
               ],

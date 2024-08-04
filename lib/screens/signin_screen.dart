@@ -38,6 +38,7 @@ class _SigninScreenState extends State<SigninScreen> {
     return Consumer<SigninProvider>(builder: (context, provider, child) {
       return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Center(
             child: Text(appHeader, style: appTitleStyle),
           ),

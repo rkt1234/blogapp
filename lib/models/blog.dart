@@ -5,14 +5,18 @@ class Blog {
   final String createdTime;
   final String imageUrl;
   final int userId;
+  final String authorName;
+  final String authorImageUrl;
 
   Blog({
-    required this.postId,
-    required this.title,
-    required this.description,
-    required this.createdTime,
-    required this.imageUrl,
-    required this.userId,
+     required this.authorName,
+     required this.authorImageUrl,
+     required this.postId,
+     required this.title,
+     required this.description,
+     required this.createdTime,
+     required this.imageUrl,
+     required this.userId,
   });
 
   factory Blog.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,22 @@ class Blog {
       createdTime: json['createdtime'],
       imageUrl: json['imageurl'],
       userId: json['userid'],
+      authorName: json['authorname'],
+      authorImageUrl: json['authorimageurl'],
     );
+  }
+  Map<String, dynamic> toJsonLogin() {
+    print("hello hre");
+    Map<String, dynamic> userObject = {
+      'title': title,
+      'description': description,
+      'createdTime': createdTime,
+      'userId': userId,
+      'imageUrl': imageUrl,
+      'authorName': authorName,
+      'authorImageUrl': authorImageUrl
+
+    };
+    return userObject;
   }
 }

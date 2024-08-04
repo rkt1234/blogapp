@@ -1,5 +1,7 @@
+import 'package:blogapp/provider/create_provider.dart';
 import 'package:blogapp/provider/signin_provider.dart';
 import 'package:blogapp/provider/signup_provider.dart';
+import 'package:blogapp/screens/create_blog_screen.dart';
 import 'package:blogapp/screens/home_screen.dart';
 import 'package:blogapp/screens/signin_screen.dart';
 import 'package:blogapp/screens/signup_screen.dart';
@@ -15,6 +17,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => SignupProvider()),
         ChangeNotifierProvider(create: (context) => SigninProvider()),
+        ChangeNotifierProvider(create: (context) => CreateProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false, home: MyApp(prefs: prefs))));
@@ -33,9 +36,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     String? token = widget.prefs.getString('jwt_token');
     if (token == null || JwtDecoder.isExpired(token)) {
-      return const SigninScreen();
+      return const SignupScreen();
     } else {
       return HomeScreen(token: token);
+      // return CreateBlog();
     }
   }
 }

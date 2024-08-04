@@ -1,7 +1,10 @@
 import 'package:blogapp/models/blog.dart';
+import 'package:blogapp/screens/create_blog_screen.dart';
 import 'package:blogapp/screens/signin_screen.dart';
+import 'package:blogapp/screens/view_blog_screen.dart';
 import 'package:blogapp/services/blog_api_service.dart';
 import 'package:blogapp/services/navigation_service.dart';
+import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -16,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late String userName;
   late SharedPreferences pref;
   @override
   void initState() {
@@ -26,12 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
       widget.token,
     );
     userName = jwtDecoded['username'];
-    // fetchBlogs();
+    uId = jwtDecoded['uid'];
+    imageUrl = jwtDecoded['imageurl'];
   }
 
-  void fetchBlogs() {
-    getBlog();
-  }
+
 
   void initSharedPreferences() async {
     pref = await SharedPreferences.getInstance();
@@ -42,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await pref.remove('jwt_token');
-          pushReplacement(context, const SigninScreen());
+          
+          push(context,  CreateBlog(token: widget.token,));
         },
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
@@ -65,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Spacer(),
                   Text(userName),
                   const Spacer(),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
+                  IconButton(onPressed: () async{await pref.remove('jwt_token');
+          pushReplacement(context, const SigninScreen());}, icon: const Icon(Icons.logout))
                 ],
               ),
             ),
@@ -74,22 +76,31 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Flexible(
                 child: FutureBuilder<List<Blog>>(
-              future: getBlog(),
+              future: getBlog(widget.token),
               builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return const Center(child: CircularProgressIndicator());
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No posts found'));
-                }
-                else{
+                  return const Center(child: Text('Looks like it is empty here'));
+                } else {
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return  BlogTile(description: snapshot.data![index].description, title: snapshot.data![index].title);
+                      return InkWell(
+                        onTap: () {
+                          push(context, ViewBlogScreen());
+                        },
+                        child: BlogTile(
+                            description: snapshot.data![index].description,
+                            title: snapshot.data![index].title,
+                            authorName: snapshot.data![index].authorName,
+                            ),
+                      );
+                          
                     },
                   );
                 }
