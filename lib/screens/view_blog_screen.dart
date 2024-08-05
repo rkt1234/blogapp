@@ -17,8 +17,12 @@ import 'package:flutter/material.dart';
 /// );
 /// ```
 class ViewBlogScreen extends StatefulWidget {
+  String title;
+  String description;
+  String blogImageUrl;
+  String createdAt;
   /// Creates a new instance of [ViewBlogScreen].
-  const ViewBlogScreen({super.key});
+   ViewBlogScreen({super.key, required this.title, required this.description, required this.blogImageUrl, required this.createdAt});
 
   @override
   State<ViewBlogScreen> createState() => _ViewBlogScreenState();
@@ -45,7 +49,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
                       fit: BoxFit.cover,
-                      "https://media.gettyimages.com/id/1492656400/photo/chennai-india-mahendra-singh-dhoni-of-chennai-super-kings-catches-their-helmet-whilst.jpg?s=612x612&w=gi&k=20&c=JbYno-lPxLLeKkCy4sa9TYJ1IMPDFMNVO0VF1xgqYCM="),
+                      widget.blogImageUrl),
                 ),
               ),
               const SizedBox(
@@ -54,7 +58,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
 
               /// The blog post's title.
               Text(
-                "title",
+                widget.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: blogTitleStyle,
@@ -62,7 +66,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Text("Created at"),
+              Text("Created at ${widget.createdAt}"),
               const SizedBox(
                 height: 10,
               ),
@@ -71,7 +75,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
               Flexible(
                 child: SingleChildScrollView(
                   child: Text(
-                    random,
+                    widget.description,
                     maxLines: null,
                     overflow: TextOverflow.fade,
                     style: blogDescriptionStyle,

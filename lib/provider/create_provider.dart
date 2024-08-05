@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blogapp/services/blog_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class CreateProvider extends ChangeNotifier {
   dynamic titleError;
@@ -11,22 +14,27 @@ class CreateProvider extends ChangeNotifier {
   String toastMessage = "";
   String jwt = "";
   bool isLoading = false;
+  bool isImageSelected = false;
+  File? pickedImage;
+  late String blogImageUrl;
 
    Future<bool> checkValidity(
-      title, description, createdTime, imageUrl, userId, token, authorName, authorImageUrl) async {
+      title, description, createdTime, userId, token, authorName, authorImageUrl) async {
         print("is wale me");
+        
     titleError = title == "" ? "Please enter a title" : null;
     descriptionError = description == "" ? "Please enter description" : null;
     notifyListeners();
-    return userServiceCall(title, description, createdTime, imageUrl, userId, token, authorName, authorImageUrl);
+    return userServiceCall(title, description, createdTime, userId, token, authorName, authorImageUrl);
   }
 
     Future<bool> userServiceCall(
-      title, description, createdTime, imageUrl, userId, token, authorName, authorImageUrl) async {
+      title, description, createdTime, userId, token, authorName, authorImageUrl) async {
     isLoading = true;
     late bool isNavigate;
-    if (titleError == null && descriptionError == null) {
-      response = await createBlog(title, description, createdTime, imageUrl, userId, token, authorName, authorImageUrl);
+    if (titleError == null && descriptionError == null && pickedImage!=null) {
+      await uploadImage();
+      response = await createBlog(title, description, createdTime, blogImageUrl, userId, token, authorName, authorImageUrl);
 
       if (response.statusCode == 200) {
         toastMessage =  jsonDecode(response.body)['message'];
@@ -41,5 +49,42 @@ class CreateProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return isNavigate;
+  }
+
+   pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      pickedImage = File(image.path);
+      print(pickedImage);
+    }
+    notifyListeners();
+  }
+
+  Future<void> uploadImage() async {
+    final uploadUrl = "https://api.cloudinary.com/v1_1/ddrldbm5c/upload";
+
+    if (pickedImage != null) {
+      final request = http.MultipartRequest('POST', Uri.parse(uploadUrl))
+        ..fields['upload_preset'] = "vjb0mgsb"
+        ..files
+            .add(await http.MultipartFile.fromPath('file', pickedImage!.path));
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseData = await response.stream.toBytes();
+        final responseString = utf8.decode(responseData);
+        final jsonMap = jsonDecode(responseString);
+        // Use the jsonMap to extract the uploaded image URL
+        blogImageUrl = jsonMap['secure_url'];
+        print(blogImageUrl);
+      } else {
+        print('Failed to upload image: ${response.statusCode}');
+      }
+    }
+  }
+   void resetPickedImage() {
+    pickedImage = null;
+    notifyListeners();
   }
 }

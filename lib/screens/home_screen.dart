@@ -108,14 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          push(context, ViewBlogScreen());
+                          push(context, ViewBlogScreen(title: snapshot.data![index].title, description: snapshot.data![index].description, blogImageUrl: snapshot.data![index].imageUrl, createdAt: snapshot.data![index].createdTime,));
                         },
                         child: BlogTile(
                             description: snapshot.data![index].description,
                             title: snapshot.data![index].title,
                             authorName: snapshot.data![index].authorName,
                             authorImageUrl:
-                                snapshot.data![index].authorImageUrl),
+                                snapshot.data![index].authorImageUrl, imageUrl: snapshot.data![index].imageUrl,),
                       );
                     },
                   );

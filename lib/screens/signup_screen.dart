@@ -126,7 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           InkWell(
                             onTap: () async {
-                              push(context, const SigninScreen());
+                              pushReplacement(context, const SigninScreen());
                             },
                             child: Text(
                               " Login",

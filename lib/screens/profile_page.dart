@@ -22,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    
     super.initState();
     _futureBlogs = getUserBlog(widget.token);
   }
@@ -31,46 +30,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     print("firse");
     return Scaffold(
-    body: SafeArea(
-        child: Stack(
-      children: [
-        Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-               CircleAvatar(
-                backgroundImage: NetworkImage(imageUrl),
-                radius: 50,
-              ),
-              const SizedBox(height: 20),
-              Text(userName),
-              const SizedBox(height: 20),
-              const Text("My Blogs "),
-              const SizedBox(
-                height: 50,
-              ),
-              Flexible(
-                  child: FutureBuilder<List<Blog>>(
-                future: getUserBlog(widget.token),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                        child: Text('Looks like it is empty here'));
-                  } else {
-                    return ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onLongPress: () async {
-                            showModalBottomSheet(
+      body: SafeArea(
+          child: Stack(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(imageUrl),
+                  radius: 50,
+                ),
+                const SizedBox(height: 20),
+                Text(userName),
+                const SizedBox(height: 20),
+                const Text("My Blogs "),
+                const SizedBox(
+                  height: 50,
+                ),
+                Flexible(
+                    child: FutureBuilder<List<Blog>>(
+                  future: getUserBlog(widget.token),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                          child: Text('Looks like it is empty here'));
+                    } else {
+                      return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onLongPress: () async {
+                              showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Column(
@@ -86,25 +85,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         },
                                       ),
                                       ListTile(
-                                        leading: const Icon(Icons.delete, color: Colors.red,),
+                                        leading: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
                                         title: const Text('Delete'),
-                                        onTap: () async{
-                                          
-                                         
-                                          var response = await deletePost(snapshot.data![index].postId, widget.token);
+                                        onTap: () async {
+                                          var response = await deletePost(
+                                              snapshot.data![index].postId,
+                                              widget.token);
                                           setState(() {
                                             print("inside set statde");
                                           });
-                                          if(response.statusCode==200) {
+                                          if (response.statusCode == 200) {
                                             print("if me aa gaya h ");
                                             getToast(
-                                                context, "Blog deleted", const Icon(Icons.check, color: Colors.green,));
-                                          }
-                                          else {
+                                                context,
+                                                "Blog deleted",
+                                                const Icon(
+                                                  Icons.check,
+                                                  color: Colors.green,
+                                                ));
+                                          } else {
                                             print("else me aa gaya h ");
                                             getToast(
                                                 context,
-                                                jsonDecode(response.body)['message'],
+                                                jsonDecode(
+                                                    response.body)['message'],
                                                 const Icon(
                                                   Icons.check,
                                                   color: Colors.green,
@@ -113,40 +120,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           pop(context);
                                           print("baad mein ho rha h");
                                           // Handle delete action
-                                         
-                                            // Close the bottom sheet
+
+                                          // Close the bottom sheet
                                         },
                                       ),
                                     ],
                                   );
                                 },
                               );
-                          },
-                          onTap: () {
-                            push(context, const ViewBlogScreen());
-                          },
-                          child: BlogTile(
-                            description: snapshot.data![index].description,
-                            title: snapshot.data![index].title,
-                            authorName: snapshot.data![index].authorName,
-                            authorImageUrl:  snapshot.data![index].authorImageUrl
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ))
-            ],
+                            },
+                            onTap: () {
+                              push(context,  ViewBlogScreen(
+                                    title: snapshot.data![index].title,
+                                    description:
+                                        snapshot.data![index].description,
+                                    blogImageUrl:
+                                        snapshot.data![index].imageUrl,
+                                    createdAt:
+                                        snapshot.data![index].createdTime,
+                                  ));
+                            },
+                            child: BlogTile(
+                              description: snapshot.data![index].description,
+                              title: snapshot.data![index].title,
+                              authorName: snapshot.data![index].authorName,
+                              authorImageUrl:
+                                  snapshot.data![index].authorImageUrl,
+                              imageUrl: snapshot.data![index].imageUrl,
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ))
+              ],
+            ),
           ),
-        ),
-        // provider.islogin
-        //     ? const Center(
-        //         child: Text("yufvyv"),
-        //       )
-        //     : Container()
-      ],
-    )),
-          );
+        ],
+      )),
+    );
   }
 }

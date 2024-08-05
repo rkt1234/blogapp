@@ -1,5 +1,6 @@
 import 'package:blogapp/provider/signin_provider.dart';
 import 'package:blogapp/screens/home_screen.dart';
+import 'package:blogapp/screens/signup_screen.dart';
 import 'package:blogapp/services/navigation_service.dart';
 import 'package:blogapp/services/toast_service.dart';
 import 'package:blogapp/utils/constants.dart';
@@ -122,7 +123,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                           InkWell(
                             onTap: () async {
-                              pop(context);
+                              pushReplacement(context, SignupScreen());
                             },
                             child: Text(
                               " Signup",

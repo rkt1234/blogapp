@@ -6,7 +6,8 @@ class BlogTile extends StatefulWidget {
   final String description;
   final String authorName;
   final String authorImageUrl;
-   const BlogTile({super.key, required this.title, required this.description, required this.authorName, required this.authorImageUrl});
+  final String imageUrl;
+   const BlogTile({super.key, required this.title, required this.description, required this.authorName, required this.authorImageUrl, required this.imageUrl});
 
   @override
   State<BlogTile> createState() => _BlogTileState();
@@ -27,7 +28,7 @@ class _BlogTileState extends State<BlogTile> {
                 height: 100,
                 width: 150,
                 fit: BoxFit.cover,
-                "https://media.gettyimages.com/id/1492656400/photo/chennai-india-mahendra-singh-dhoni-of-chennai-super-kings-catches-their-helmet-whilst.jpg?s=612x612&w=gi&k=20&c=JbYno-lPxLLeKkCy4sa9TYJ1IMPDFMNVO0VF1xgqYCM="),
+                widget.imageUrl),
           ),
           const SizedBox(
             width: 10,

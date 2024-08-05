@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:js_interop';
+// import 'dart:js_interop';
 import 'package:blogapp/services/user_api_service.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +30,7 @@ class SignupProvider extends ChangeNotifier {
     isLoading = true;
     late bool isNavigate;
     if (emailError == null && passwordError == null && usernameError == null) {
+      await uploadImage();
       response = await registerService(email, password, userName, imageUrl);
 
       if (response.statusCode == 200) {
@@ -53,6 +54,7 @@ class SignupProvider extends ChangeNotifier {
     if (image != null) {
       pickedImage = File(image.path);
       print(pickedImage);
+      
     }
     notifyListeners();
   }
@@ -66,6 +68,17 @@ class SignupProvider extends ChangeNotifier {
         ..files
             .add(await http.MultipartFile.fromPath('file', pickedImage!.path));
       final response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseData = await response.stream.toBytes();
+        final responseString = utf8.decode(responseData);
+        final jsonMap = jsonDecode(responseString);
+        // Use the jsonMap to extract the uploaded image URL
+        imageUrl = jsonMap['secure_url'];
+        print(imageUrl);
+      } else {
+        print('Failed to upload image: ${response.statusCode}');
+      }
     }
   }
 }

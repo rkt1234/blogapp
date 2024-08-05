@@ -21,8 +21,8 @@ Future<List<Blog>> getBlog(token) async{
   }
 }
 
-Future<dynamic> createBlog(String title, String description, String createdTime, String imageUrl, int userId, String token, String authorName, String authorImageUrl) async {
-  Map<String,dynamic> body = Blog(title: title, description: description, createdTime: createdTime, imageUrl: imageUrl, userId: userId, postId: 0, authorImageUrl: authorImageUrl, authorName: authorName).toJsonBlog();
+Future<dynamic> createBlog(String title, String description, String createdTime, String blogimageUrl, int userId, String token, String authorName, String authorImageUrl) async {
+  Map<String,dynamic> body = Blog(title: title, description: description, createdTime: createdTime, imageUrl: blogimageUrl, userId: userId, postId: 0, authorImageUrl: authorImageUrl, authorName: authorName).toJsonBlog();
    Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': token,
