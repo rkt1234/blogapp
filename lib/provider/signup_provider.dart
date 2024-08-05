@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:js_interop';
 import 'package:blogapp/services/user_api_service.dart';
+import 'package:blogapp/utils/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class SignupProvider extends ChangeNotifier {
   dynamic emailError;
@@ -15,7 +18,7 @@ class SignupProvider extends ChangeNotifier {
   String toastMessage = "";
   File? pickedImage;
 
-  Future<bool> checkValidity(email, userName, password) async{
+  Future<bool> checkValidity(email, userName, password) async {
     emailError = email == "" ? "Please enter an email" : null;
     usernameError = userName == "" ? "Please enter a username" : null;
     passwordError = password == "" ? "Please enter a password" : null;
@@ -23,12 +26,11 @@ class SignupProvider extends ChangeNotifier {
     return userServiceCall(email, password, userName);
   }
 
-  
   Future<bool> userServiceCall(email, password, userName) async {
     isLoading = true;
     late bool isNavigate;
-    if (emailError == null && passwordError == null && usernameError==null) {
-      response = await registerService(email, password, userName);
+    if (emailError == null && passwordError == null && usernameError == null) {
+      response = await registerService(email, password, userName, imageUrl);
 
       if (response.statusCode == 200) {
         toastMessage = jsonDecode(response.body)['message'];
@@ -45,12 +47,25 @@ class SignupProvider extends ChangeNotifier {
     return isNavigate;
   }
 
-    pickImage() async {
+  pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      pickedImage=File(image.path);
-    } 
+      pickedImage = File(image.path);
+      print(pickedImage);
+    }
     notifyListeners();
+  }
+
+  Future<void> uploadImage() async {
+    final uploadUrl = "https://api.cloudinary.com/v1_1/ddrldbm5c/upload";
+
+    if (pickedImage != null) {
+      final request = http.MultipartRequest('POST', Uri.parse(uploadUrl))
+        ..fields['upload_preset'] = "vjb0mgsb"
+        ..files
+            .add(await http.MultipartFile.fromPath('file', pickedImage!.path));
+      final response = await request.send();
+    }
   }
 }

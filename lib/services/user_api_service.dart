@@ -17,9 +17,11 @@ Future<dynamic> loginService(String email, String password) async {
         return response;
   } 
 
-Future<dynamic> registerService(String email, String password, String userName) async {
+Future<dynamic> registerService(String email, String password, String userName, String imageUrl) async {
+  print("inside register");
+  print(imageUrl);
   Map<String, String> body =
-      UserModel(password: password, email: email, userName: userName, imageUrl: '')
+      UserModel(password: password, email: email, userName: userName, imageUrl: imageUrl)
           .toJsonRegister();
   Map<String, String> headers = {'Content-Type': 'application/json'};
   // Add other headers if needed

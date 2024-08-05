@@ -72,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               token: widget.token,
                             ));
                       },
-                      child: const CircleAvatar()),
+                      child: CircleAvatar(
+                          backgroundImage: NetworkImage(imageUrl))),
                   const Spacer(),
                   Text(userName),
                   const Spacer(),
@@ -110,10 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           push(context, ViewBlogScreen());
                         },
                         child: BlogTile(
-                          description: snapshot.data![index].description,
-                          title: snapshot.data![index].title,
-                          authorName: snapshot.data![index].authorName,
-                        ),
+                            description: snapshot.data![index].description,
+                            title: snapshot.data![index].title,
+                            authorName: snapshot.data![index].authorName,
+                            authorImageUrl:
+                                snapshot.data![index].authorImageUrl),
                       );
                     },
                   );

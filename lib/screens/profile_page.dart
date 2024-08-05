@@ -8,7 +8,6 @@ import 'package:blogapp/services/toast_service.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final token;
@@ -41,7 +40,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CircleAvatar(
+               CircleAvatar(
+                backgroundImage: NetworkImage(imageUrl),
                 radius: 50,
               ),
               const SizedBox(height: 20),
@@ -77,8 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       ListTile(
-                                        leading: Icon(Icons.edit),
-                                        title: Text('Edit'),
+                                        leading: const Icon(Icons.edit),
+                                        title: const Text('Edit'),
                                         onTap: () {
                                           // Handle edit action
                                           Navigator.pop(
@@ -86,8 +86,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         },
                                       ),
                                       ListTile(
-                                        leading: Icon(Icons.delete, color: Colors.red,),
-                                        title: Text('Delete'),
+                                        leading: const Icon(Icons.delete, color: Colors.red,),
+                                        title: const Text('Delete'),
                                         onTap: () async{
                                           
                                          
@@ -98,14 +98,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           if(response.statusCode==200) {
                                             print("if me aa gaya h ");
                                             getToast(
-                                                context, "Blog deleted", Icon(Icons.check, color: Colors.green,));
+                                                context, "Blog deleted", const Icon(Icons.check, color: Colors.green,));
                                           }
                                           else {
                                             print("else me aa gaya h ");
                                             getToast(
                                                 context,
                                                 jsonDecode(response.body)['message'],
-                                                Icon(
+                                                const Icon(
                                                   Icons.check,
                                                   color: Colors.green,
                                                 ));
@@ -129,6 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             description: snapshot.data![index].description,
                             title: snapshot.data![index].title,
                             authorName: snapshot.data![index].authorName,
+                            authorImageUrl:  snapshot.data![index].authorImageUrl
                           ),
                         );
                       },

@@ -31,7 +31,7 @@ class Blog {
       authorImageUrl: json['authorimageurl'],
     );
   }
-  Map<String, dynamic> toJsonLogin() {
+  Map<String, dynamic> toJsonBlog() {
     print("hello hre");
     Map<String, dynamic> userObject = {
       'title': title,

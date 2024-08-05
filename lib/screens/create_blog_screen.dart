@@ -82,6 +82,8 @@ class _CreateBlogState extends State<CreateBlog> {
                         DateTime now = DateTime.now();
                         String createdTime =
                             DateFormat('M/d/yyyy h:mm a').format(now);
+                            print("hahahahah");
+                            print(imageUrl);
                         bool navigate = await provider.checkValidity(
                             titleController.text,
                             descriptionController.text,

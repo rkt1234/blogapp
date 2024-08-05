@@ -5,7 +5,8 @@ class BlogTile extends StatefulWidget {
   final String title;
   final String description;
   final String authorName;
-   const BlogTile({super.key, required this.title, required this.description, required this.authorName});
+  final String authorImageUrl;
+   const BlogTile({super.key, required this.title, required this.description, required this.authorName, required this.authorImageUrl});
 
   @override
   State<BlogTile> createState() => _BlogTileState();
@@ -52,7 +53,8 @@ class _BlogTileState extends State<BlogTile> {
                 ),
                  Row(
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
+                      backgroundImage: NetworkImage(widget.authorImageUrl),
                       radius: 10,
                     ),
                     const SizedBox(
