@@ -50,21 +50,22 @@ bool isLoading = false;
     pickedImage = null;
     notifyListeners();
   }
-     Future<bool> checkValidity(title, description, createdTime, userId, token,
-      authorName, authorImageUrl) async {
+     Future<bool> checkValidity(currentBlogImageUrl,title, description, createdTime, userId, token,
+      authorName, authorImageUrl, postId) async {
+        blogImageUrl=currentBlogImageUrl;
     print("is wale me");
 
     titleError = title == "" ? "Please enter a title" : null;
     descriptionError = description == "" ? "Please enter description" : null;
     notifyListeners();
     return userServiceCall(title, description, createdTime, userId, token,
-        authorName, authorImageUrl);
+        authorName, authorImageUrl, postId);
   }
       Future<bool> userServiceCall(title, description, createdTime, userId, token,
-      authorName, authorImageUrl) async {
+      authorName, authorImageUrl, postId) async {
     isLoading = true;
     late bool isNavigate;
-    if (titleError == null && descriptionError == null && pickedImage != null) {
+    if (titleError == null && descriptionError == null) {
       await uploadImage();
       response = await updateBlog(title, description, createdTime, blogImageUrl,
           userId, token, authorName, authorImageUrl, postId);
@@ -79,6 +80,7 @@ bool isLoading = false;
         icon = const Icon(Icons.error, color: Colors.red);
       }
     }
+    print("yaha tak aa rha h ");
     isLoading = false;
     notifyListeners();
     return isNavigate;

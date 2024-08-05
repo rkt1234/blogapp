@@ -40,7 +40,8 @@ class Blog {
       'userId': userId,
       'imageUrl': imageUrl,
       'authorName': authorName,
-      'authorImageUrl': authorImageUrl
+      'authorImageUrl': authorImageUrl,
+      'postId': postId
 
     };
     return userObject;

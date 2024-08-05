@@ -12,8 +12,10 @@ class EditBlogScrren extends StatefulWidget {
   String title;
   String description;
   String blogImageUrl;
-
-  EditBlogScrren({super.key, required this.title, required this.description, required this.blogImageUrl});
+  String token;
+  late int postId;
+  EditBlogScrren({super.key, required this.title, required this.description, required this.blogImageUrl, required this.token,
+      required this.postId});
 
   @override
   State<EditBlogScrren> createState() => _EditBlogScrrenState();
@@ -118,13 +120,15 @@ class _EditBlogScrrenState extends State<EditBlogScrren> {
                         print("hahahahah");
                         print(imageUrl);
                         bool navigate = await provider.checkValidity(
+                          widget.blogImageUrl,
                             titleController.text,
                             descriptionController.text,
                             createdTime,
                             uId,
                             widget.token,
                             userName,
-                            imageUrl);
+                            imageUrl,
+                            widget.postId);
                         getToast(context, provider.toastMessage, provider.icon);
                         if (navigate) {
                           pop(
@@ -148,13 +152,19 @@ class _EditBlogScrrenState extends State<EditBlogScrren> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child: const Text("create"),
+                      child: const Text("update"),
                     )
                     ],
                   ),
-                )
+                ),
+                provider.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container()
               ],
             ),
+            
           ),
         );
       }

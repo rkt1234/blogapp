@@ -83,7 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           // Handle edit action
                                           pop(
                                               context);
-                                              push(context, EditBlogScrren(title: snapshot.data![index].title, description: snapshot.data![index].description, blogImageUrl: snapshot.data![index].imageUrl,)); // Close the bottom sheet
+                                              push(context, EditBlogScrren(title: snapshot.data![index].title, description: snapshot.data![index].description, blogImageUrl: snapshot.data![index].imageUrl, token: widget.token, postId: snapshot
+                                                    .data![index].postId,
+                                              )); // Close the bottom sheet
                                         },
                                       ),
                                       ListTile(
