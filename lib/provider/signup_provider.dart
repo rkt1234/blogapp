@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:blogapp/services/user_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupProvider extends ChangeNotifier {
   dynamic emailError;
@@ -11,6 +13,7 @@ class SignupProvider extends ChangeNotifier {
   late Icon icon;
   String jwt = "";
   String toastMessage = "";
+  File? pickedImage;
 
   Future<bool> checkValidity(email, userName, password) async{
     emailError = email == "" ? "Please enter an email" : null;
@@ -40,5 +43,14 @@ class SignupProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return isNavigate;
+  }
+
+    pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      pickedImage=File(image.path);
+    } 
+    notifyListeners();
   }
 }
