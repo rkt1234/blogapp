@@ -59,3 +59,16 @@ Future<dynamic> deletePost(postId, token) async {
   return response;
 
 }
+
+Future<dynamic> updateBlog(title, description, createdTime, blogImageUrl,
+    userId, token, authorName, authorImageUrl, postId) async {
+    Map<String, int> body = {"postId": postId};
+      Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': token,
+  };
+    dynamic response = await http.post(Uri.parse(updateBlogUrl),
+      body: jsonEncode(body), headers: headers);
+  print(response.body);
+  return response;
+}

@@ -106,7 +106,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: const Text("text"),
+                        child: const Text("Login"),
                       ),
                       Container(
                           margin: const EdgeInsets.symmetric(

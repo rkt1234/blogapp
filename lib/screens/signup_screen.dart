@@ -109,7 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: const Text("text"),
+                        child: const Text("Register"),
                       ),
                       Container(
                           margin: const EdgeInsets.symmetric(

@@ -50,15 +50,15 @@ class _CreateBlogState extends State<CreateBlog> {
                                   color: Colors.black45,
                                 ),
                                   margin: const EdgeInsets.symmetric(horizontal: 16),
-                                  height: 170,
+                                  height: 300,
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       borderRadius: BorderRadius.circular(6)),
-                                  width: MediaQuery.of(context).size.width,
+                                  width: double.infinity
                                 ):Container(
                                 margin: EdgeInsets.symmetric(horizontal: 16),
-                                height: 170,
-                                width: MediaQuery.of(context).size.width,
+                                height: 300,
+                                width: double.infinity,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
                                   child:Image.file(

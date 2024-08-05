@@ -4,3 +4,4 @@ const fetchBlogUrl = "https://memoir-7a4v.onrender.com/post/fetch";
 const createBlogUrl = "https://memoir-7a4v.onrender.com/post/create";
 const fetchUserBlogUrl = "https://memoir-7a4v.onrender.com/post/fetch/userpost";
 const deleteBlogUrl = "https://memoir-7a4v.onrender.com/post/delete";
+const updateBlogUrl = "https://memoir-7a4v.onrender.com/post/update";

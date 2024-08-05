@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blogapp/models/blog.dart';
+import 'package:blogapp/screens/edit_blog_screen.dart';
 import 'package:blogapp/screens/view_blog_screen.dart';
 import 'package:blogapp/services/blog_api_service.dart';
 import 'package:blogapp/services/navigation_service.dart';
@@ -80,8 +81,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         title: const Text('Edit'),
                                         onTap: () {
                                           // Handle edit action
-                                          Navigator.pop(
-                                              context); // Close the bottom sheet
+                                          pop(
+                                              context);
+                                              push(context, EditBlogScrren(title: snapshot.data![index].title, description: snapshot.data![index].description, blogImageUrl: snapshot.data![index].imageUrl,)); // Close the bottom sheet
                                         },
                                       ),
                                       ListTile(
