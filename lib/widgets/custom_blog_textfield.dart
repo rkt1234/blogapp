@@ -16,12 +16,15 @@ class _BlogCustomTextFieldState extends State<BlogCustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
       controller: widget.controller,
       decoration: InputDecoration(
         errorText: widget.errorText,
         labelText: widget.labelText,
         labelStyle: widget.labelStyle,
         border: InputBorder.none,
+        
       ),
     );
     

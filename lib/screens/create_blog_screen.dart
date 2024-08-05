@@ -19,6 +19,7 @@ class CreateBlog extends StatefulWidget {
 class _CreateBlogState extends State<CreateBlog> {
   late TextEditingController titleController = TextEditingController();
   late TextEditingController descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CreateProvider>(builder: (context, provider, child) {
@@ -29,52 +30,58 @@ class _CreateBlogState extends State<CreateBlog> {
           }
         },
         child: Scaffold(
-            appBar:
-                AppBar(title: const Text("Create a new blog"), centerTitle: true, automaticallyImplyLeading: false,),
-            body: Stack(
-              children: [
-                Container(
+          appBar: AppBar(
+            title: const Text("Create a new blog"),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+          ),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                            onTap: () async {
-                                await provider.pickImage();
-                              },
-                            child: provider.pickedImage == null
-                            ?  Container(
-                                  child:  Icon(
+                        onTap: () async {
+                          await provider.pickImage();
+                        },
+                        child: provider.pickedImage == null
+                            ? Container(
+                                child: Icon(
                                   Icons.add_a_photo,
                                   color: Colors.black45,
                                 ),
-                                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                                  height: 300,
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(6)),
-                                  width: double.infinity
-                                ):Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                height: 300,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(6)),
+                                width: double.infinity,
+                              )
+                            : Container(
                                 margin: EdgeInsets.symmetric(horizontal: 16),
                                 height: 300,
                                 width: double.infinity,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
-                                  child:Image.file(
+                                  child: Image.file(
                                     provider.pickedImage!,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                          ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red),
+                            border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(10)),
                         child: BlogCustomTextField(
                           errorText: provider.titleError,
@@ -86,18 +93,17 @@ class _CreateBlogState extends State<CreateBlog> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.red),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: BlogCustomTextField(
-                            errorText: provider.descriptionError,
-                            controller: descriptionController,
-                            labelText: 'Description',
-                            labelStyle: blogDescriptionStyle,
-                          ),
+                      Container(
+                        height: 200,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: BlogCustomTextField(
+                          errorText: provider.descriptionError,
+                          controller: descriptionController,
+                          labelText: 'Description',
+                          labelStyle: blogDescriptionStyle,
                         ),
                       ),
                       const SizedBox(
@@ -108,52 +114,52 @@ class _CreateBlogState extends State<CreateBlog> {
                           DateTime now = DateTime.now();
                           String createdTime =
                               DateFormat('M/d/yyyy h:mm a').format(now);
-                              print("hahahahah");
-                              print(imageUrl);
+                          print("hahahahah");
+                          print(imageUrl);
                           bool navigate = await provider.checkValidity(
-                              titleController.text,
-                              descriptionController.text,
-                              createdTime,
-                              uId,
-                              widget.token,
-                              userName,
-                              imageUrl);
-                          getToast(context, provider.toastMessage, provider.icon);
+                            titleController.text,
+                            descriptionController.text,
+                            createdTime,
+                            uId,
+                            widget.token,
+                            userName,
+                            imageUrl,
+                          );
+                          getToast(
+                              context, provider.toastMessage, provider.icon);
                           if (navigate) {
-                           
-                            pop(
-                              context,
-                            );
-                             provider.pickedImage = null;
+                            pop(context);
+                            provider.pickedImage = null;
                           }
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Colors.blue, // Button text color
+                          backgroundColor: Colors.blue,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(12), // Rounded corners
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          elevation: 5, // Button elevation
+                          elevation: 5,
                           textStyle: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: const Text("create"),
-                      )
+                        child: const Text("Create"),
+                      ),
                     ],
                   ),
                 ),
-                provider.isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container()
-              ],
-            )),
+              ),
+              provider.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
       );
     });
   }
