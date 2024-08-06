@@ -4,6 +4,7 @@ import 'package:blogapp/services/toast_service.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/utils/text_style.dart';
 import 'package:blogapp/widgets/custom_blog_textfield.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -69,8 +70,8 @@ class _EditBlogScrrenState extends State<EditBlogScrren> {
                                   width: MediaQuery.of(context).size.width,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6),
-                                    child: Image.network(
-                                      widget.blogImageUrl,
+                                    child: CachedNetworkImage(
+                                      imageUrl:widget.blogImageUrl,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

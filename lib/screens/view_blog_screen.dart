@@ -1,6 +1,7 @@
 import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/utils/constants.dart';
 import 'package:blogapp/utils/text_style.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 /// A screen for viewing a blog post.
@@ -47,9 +48,9 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
                 width: double.infinity,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
+                  child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      widget.blogImageUrl),
+                      imageUrl:widget.blogImageUrl),
                 ),
               ),
               const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:blogapp/utils/text_style.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BlogTile extends StatefulWidget {
@@ -18,17 +19,23 @@ class _BlogTileState extends State<BlogTile> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.green)),
+      // decoration: BoxDecoration(border: Border.all(color: Colors.green)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-                height: 100,
-                width: 150,
-                fit: BoxFit.cover,
-                widget.imageUrl),
+            child: CachedNetworkImage(
+              height: 100,
+              width: 150,
+              fit: BoxFit.cover,
+              imageUrl: widget.imageUrl,
+            ),
+            // child: Image.network(
+            //     height: 100,
+            //     width: 150,
+            //     fit: BoxFit.cover,
+            //     widget.imageUrl),
           ),
           const SizedBox(
             width: 10,

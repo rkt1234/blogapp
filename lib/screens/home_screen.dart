@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(border: Border.all(color: Colors.red)),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
