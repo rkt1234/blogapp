@@ -46,96 +46,88 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
         body:Stack(
           children: [
-             Center(
-                child: Container(
-                  height: height * .35,
-                  width: height * .35,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        "Login",
-                        style: authenticationFormStyle,
-                      ),
-                      AuthCustomTextField(
-                        errorText: provider.emailError,
-                        controller: emailController,
-                        labelText: 'E-mail',
-                        labelStyle: authenticationFormStyle,
-                      ),
-                      AuthCustomTextField(
-                        errorText: provider.passwordError,
-                        controller: passwordController,
-                        labelText: 'Password',
-                        labelStyle: authenticationFormStyle,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          bool navigate = await provider.checkValidity(
-                              emailController.text, passwordController.text);
-                          print(provider.toastMessage);
-                          getToast(
-                              context, provider.toastMessage, provider.icon);
-                          if (navigate) {
-                            await pref.setString('jwt_token', provider.jwt);
-                            print(provider.jwt);
-                            pushReplacement(
-                                context,
-                                HomeScreen(
-                                  token: provider.jwt,
-                                  // token: jwt,
-                                ));
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.blue, // Button text color
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(12), // Rounded corners
-                          ),
-                          elevation: 5, // Button elevation
-                          textStyle: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+             Container(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+               height: height * .4,
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                 children: [
+                   Text(
+                     "Signin to your account",textAlign: TextAlign.center,
+                     style: authenticationFormStyle.copyWith(fontSize: 20, fontWeight: FontWeight.w900),
+                   ),
+                   AuthCustomTextField(
+                     errorText: provider.emailError,
+                     controller: emailController,
+                     labelText: 'E-mail',
+                     labelStyle: authenticationFormStyle,
+                   ),
+                   AuthCustomTextField(
+                    obscureText: true,
+                     errorText: provider.passwordError,
+                     controller: passwordController,
+                     labelText: 'Password',
+                     labelStyle: authenticationFormStyle,
+                   ),
+                   ElevatedButton(
+                     onPressed: () async {
+                       bool navigate = await provider.checkValidity(
+                           emailController.text, passwordController.text);
+                       print(provider.toastMessage);
+                       getToast(
+                           context, provider.toastMessage, provider.icon);
+                       if (navigate) {
+                         await pref.setString('jwt_token', provider.jwt);
+                         print(provider.jwt);
+                         pushReplacement(
+                             context,
+                             HomeScreen(
+                               token: provider.jwt,
+                               // token: jwt,
+                             ));
+                       }
+                     },
+                     style: ElevatedButton.styleFrom(
+                       foregroundColor: Colors.white,
+                       backgroundColor: Color(0xFF1A80E5), // Button text color
+                    
+                       shape: RoundedRectangleBorder(
+                         borderRadius:
+                             BorderRadius.circular(15), // Rounded corners
+                       ),
+                       elevation: 2, // Button elevation
+                       textStyle: const TextStyle(
+                         fontSize: 18,
+                      
+                       ),
+                     ),
+                     child: const Text("Continue"),
+                   ),
+                   ElevatedButton(
+                     onPressed: ()  {
+                       pushReplacement(context, SignupScreen());
+                     },
+                     style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.grey[100], // Button text color
+                        
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(15), // Rounded corners
                         ),
-                        child: const Text("Login"),
+                        elevation: 2, // Button elevation
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
-                      Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          height: 1,
-                          width: double.infinity,
-                          color: Colors.grey),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Don't have an account ? ",
-                            style: authenticationFormStyle,
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              pushReplacement(context, SignupScreen());
-                            },
-                            child: Text(
-                              " Signup",
-                              style: authenticationFormStyle,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                     child: const Text("Signup"),
+                   ),
+                  //  
+                   
+                 ],
+               ),
+             ),
               provider.isLoading?const Center(child: CircularProgressIndicator(),):Container()
           ],
         )

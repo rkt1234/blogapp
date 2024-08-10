@@ -9,6 +9,7 @@ import 'package:blogapp/services/toast_service.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   final token;
@@ -45,9 +46,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   radius: 50,
                 ),
                 const SizedBox(height: 20),
-                Text(userName),
+                Text(userName, style: GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w900),),
                 const SizedBox(height: 20),
-                const Text("My Blogs "),
+                Text("Library", style: GoogleFonts.montserrat(fontSize: 25, fontWeight: FontWeight.w500),),
                 const SizedBox(
                   height: 50,
                 ),

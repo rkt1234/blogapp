@@ -8,6 +8,7 @@ import 'package:blogapp/services/navigation_service.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CircleAvatar(
                           backgroundImage: NetworkImage(imageUrl))),
                   const Spacer(),
-                  Text(userName),
+                  Text(userName,  style: GoogleFonts.lato(
+                        fontSize: 25, fontWeight: FontWeight.w900),
+                  ),
                   const Spacer(),
                   IconButton(
                       onPressed: () async {

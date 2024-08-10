@@ -4,6 +4,7 @@ class AuthCustomTextField extends StatefulWidget {
   final String labelText;
   final TextStyle labelStyle;
   final TextEditingController? controller;
+  final bool? obscureText;
   // ignore: prefer_typing_uninitialized_variables
   final errorText;
   const AuthCustomTextField(
@@ -11,7 +12,7 @@ class AuthCustomTextField extends StatefulWidget {
       required this.labelText,
       required this.labelStyle,
       this.controller,
-      required this.errorText});
+      required this.errorText, this.obscureText});
 
   @override
   State<AuthCustomTextField> createState() => _AuthCustomTextFieldState();
@@ -21,6 +22,7 @@ class _AuthCustomTextFieldState extends State<AuthCustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: widget.obscureText??false,
       controller: widget.controller,
       decoration: InputDecoration(
         errorText: widget.errorText,

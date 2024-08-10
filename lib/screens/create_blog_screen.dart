@@ -31,7 +31,7 @@ class _CreateBlogState extends State<CreateBlog> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Create a new blog"),
+            title: const Text("New Post", style: TextStyle(fontWeight: FontWeight.w900),),
             centerTitle: true,
             automaticallyImplyLeading: false,
           ),
@@ -42,7 +42,7 @@ class _CreateBlogState extends State<CreateBlog> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       GestureDetector(
                         onTap: () async {
@@ -81,6 +81,7 @@ class _CreateBlogState extends State<CreateBlog> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
+                          color: Colors.grey[100],
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(10)),
                         child: BlogCustomTextField(
@@ -94,7 +95,7 @@ class _CreateBlogState extends State<CreateBlog> {
                         height: 20,
                       ),
                       Container(
-                        height: 200,
+                        height: 300,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
@@ -133,20 +134,19 @@ class _CreateBlogState extends State<CreateBlog> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.blue,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 5,
-                          textStyle: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color(0xFF1A80E5), // Button text color
+              
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(15), // Rounded corners
                         ),
-                        child: const Text("Create"),
+                        elevation: 2, // Button elevation
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                        child: const Text("Publish"),
                       ),
                     ],
                   ),

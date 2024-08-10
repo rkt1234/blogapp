@@ -49,7 +49,7 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: CachedNetworkImage(
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                       imageUrl:widget.blogImageUrl),
                 ),
               ),
@@ -58,11 +58,15 @@ class _ViewBlogScreenState extends State<ViewBlogScreen> {
               ),
 
               /// The blog post's title.
-              Text(
-                widget.title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: blogTitleStyle,
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Text(
+                    widget.title,
+                    maxLines: null,
+                    overflow: TextOverflow.ellipsis,
+                    style: blogTitleStyle,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 10,
