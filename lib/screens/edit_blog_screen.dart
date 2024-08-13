@@ -6,6 +6,7 @@ import 'package:blogapp/utils/text_style.dart';
 import 'package:blogapp/widgets/custom_blog_textfield.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -129,45 +130,52 @@ class _EditBlogScrrenState extends State<EditBlogScrren> {
                         const SizedBox(
                           height: 10,
                         ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            DateTime now = DateTime.now();
-                            String createdTime =
-                                DateFormat('M/d/yyyy h:mm a').format(now);
-                            print("hahahahah");
-                            print(imageUrl);
-                            bool navigate = await provider.checkValidity(
-                              widget.blogImageUrl,
-                              titleController.text,
-                              descriptionController.text,
-                              createdTime,
-                              uId,
-                              widget.token,
-                              userName,
-                              imageUrl,
-                              widget.postId,
-                            );
-                            getToast(
-                                context, provider.toastMessage, provider.icon);
-                            if (navigate) {
-                              pop(context);
-                              provider.pickedImage = null;
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFF1A80E5), // Button text color
-              
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(15), // Rounded corners
-                        ),
-                        elevation: 2, // Button elevation
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                          child: const Text("Update"),
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              DateTime now = DateTime.now();
+                              String createdTime =
+                                  DateFormat('M/d/yyyy h:mm a').format(now);
+                              print("hahahahah");
+                              print(imageUrl);
+                              bool navigate = await provider.checkValidity(
+                                widget.blogImageUrl,
+                                titleController.text,
+                                descriptionController.text,
+                                createdTime,
+                                uId,
+                                widget.token,
+                                userName,
+                                imageUrl,
+                                widget.postId,
+                              );
+                              getToast(
+                                  context, provider.toastMessage, provider.icon);
+                              if (navigate) {
+                                pop(context);
+                                provider.pickedImage = null;
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Color(0xFF1A80E5), // Button text color
+                                        
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(15), // Rounded corners
+                          ),
+                          elevation: 2, // Button elevation
+                          textStyle: const TextStyle(
+                            fontSize: 18,
+                          ),
+                                                ),
+                            child:  Text(
+                              "Update",
+                              style: GoogleFonts.lato(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                          ),
                         ),
                       ],
                     ),

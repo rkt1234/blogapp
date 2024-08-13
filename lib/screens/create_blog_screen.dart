@@ -5,6 +5,7 @@ import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/utils/text_style.dart';
 import 'package:blogapp/widgets/custom_blog_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +43,7 @@ class _CreateBlogState extends State<CreateBlog> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       GestureDetector(
@@ -50,10 +52,6 @@ class _CreateBlogState extends State<CreateBlog> {
                         },
                         child: provider.pickedImage == null
                             ? Container(
-                                child: Icon(
-                                  Icons.add_a_photo,
-                                  color: Colors.black45,
-                                ),
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 height: 300,
@@ -61,9 +59,13 @@ class _CreateBlogState extends State<CreateBlog> {
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(6)),
                                 width: double.infinity,
+                                child: const Icon(
+                                  Icons.add_a_photo,
+                                  color: Colors.black45,
+                                ),
                               )
                             : Container(
-                                margin: EdgeInsets.symmetric(horizontal: 16),
+                                margin: const EdgeInsets.symmetric(horizontal: 16),
                                 height: 300,
                                 width: double.infinity,
                                 child: ClipRRect(
@@ -110,43 +112,50 @@ class _CreateBlogState extends State<CreateBlog> {
                       const SizedBox(
                         height: 10,
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          DateTime now = DateTime.now();
-                          String createdTime =
-                              DateFormat('M/d/yyyy h:mm a').format(now);
-                          print("hahahahah");
-                          print(imageUrl);
-                          bool navigate = await provider.checkValidity(
-                            titleController.text,
-                            descriptionController.text,
-                            createdTime,
-                            uId,
-                            widget.token,
-                            userName,
-                            imageUrl,
-                          );
-                          getToast(
-                              context, provider.toastMessage, provider.icon);
-                          if (navigate) {
-                            pop(context);
-                            provider.pickedImage = null;
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFF1A80E5), // Button text color
-              
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(15), // Rounded corners
+                      SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            DateTime now = DateTime.now();
+                            String createdTime =
+                                DateFormat('M/d/yyyy h:mm a').format(now);
+                            print("hahahahah");
+                            print(imageUrl);
+                            bool navigate = await provider.checkValidity(
+                              titleController.text,
+                              descriptionController.text,
+                              createdTime,
+                              uId,
+                              widget.token,
+                              userName,
+                              imageUrl,
+                            );
+                            getToast(
+                                context, provider.toastMessage, provider.icon);
+                            if (navigate) {
+                              pop(context);
+                              provider.pickedImage = null;
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color(0xFF1A80E5), // Button text color
+                                      
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(12), // Rounded corners
+                          ),
+                          elevation: 2, // Button elevation
+                          textStyle: const TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                        elevation: 2, // Button elevation
-                        textStyle: const TextStyle(
-                          fontSize: 18,
+                          child:   Text(
+                            "Publish",
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                         ),
-                      ),
-                        child: const Text("Publish"),
                       ),
                     ],
                   ),
