@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       widget.token,
     );
     userName = jwtDecoded['username'];
-    uId = jwtDecoded['uid'];
+    uId = jwtDecoded['sub'];
     imageUrl = jwtDecoded['imageurl'];
   }
 
