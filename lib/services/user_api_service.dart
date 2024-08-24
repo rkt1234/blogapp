@@ -28,6 +28,7 @@ Future<dynamic> registerService(String email, String password, String userName, 
 
   dynamic response = await http.post(Uri.parse(registerUrl),
       body: jsonEncode(body), headers: headers);
+      print("after");
       print(response.body);
   return response;
 } 

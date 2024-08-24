@@ -25,8 +25,10 @@ Future<dynamic> createBlog(String title, String description, String createdTime,
   Map<String,dynamic> body = Blog(title: title, description: description, createdTime: createdTime, imageUrl: blogimageUrl, userId: userId, postId: 0, authorImageUrl: authorImageUrl, authorName: authorName).toJsonBlog();
    Map<String, String> headers = {
     'Content-Type': 'application/json',
-    'Authorization': token,
+    'Authorization': "Bearer $token",
     };
+    print(token);
+    print(body);
     dynamic response = await http.post(Uri.parse(createBlogUrl), body: jsonEncode(body), headers: headers);
     print(response.body);
     return response;
@@ -52,7 +54,7 @@ Future<dynamic> deletePost(postId, token) async {
   Map<String, int> body = {"postId": postId};
      Map<String, String> headers = {
     'Content-Type': 'application/json',
-    'Authorization': token,
+    'Authorization': "Bearer $token",
   };
   dynamic response = await http.delete(Uri.parse(deleteBlogUrl), body: jsonEncode(body), headers: headers);
   print(response.body);
@@ -74,7 +76,7 @@ Future<dynamic> updateBlog(title, description, createdTime, blogImageUrl,
       .toJsonBlog();
       Map<String, String> headers = {
     'Content-Type': 'application/json',
-    'Authorization': token,
+    'Authorization': "Bearer $token",
   };
     dynamic response = await http.post(Uri.parse(updateBlogUrl),
       body: jsonEncode(body), headers: headers);

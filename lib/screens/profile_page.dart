@@ -10,6 +10,7 @@ import 'package:blogapp/utils/configs.dart';
 import 'package:blogapp/widgets/blog_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileScreen extends StatefulWidget {
   final token;
@@ -61,8 +62,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     } else if (snapshot.hasError) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(
-                          child: Text('Looks like it is empty here'));
+                      return  Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/empty.json'),
+                          Center(
+                            child: Text(
+                              'No blog posts yet',
+                              style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
                     } else {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),

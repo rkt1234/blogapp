@@ -26,7 +26,7 @@ class SigninProvider extends ChangeNotifier {
     late bool isNavigate;
     if (emailError == null && passwordError == null) {
       response = await loginService(email, password);
-
+  print(response);
       if (response.statusCode == 200) {
         jwt = jsonDecode(response.body)['message'];
         toastMessage = "Login successful";

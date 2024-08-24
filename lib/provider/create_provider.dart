@@ -41,7 +41,7 @@ class CreateProvider extends ChangeNotifier {
         isNavigate = true;
         icon = const Icon(Icons.check, color: Colors.green);
       } else {
-        toastMessage = jsonDecode(response.body)['message'];
+        toastMessage = jsonDecode(response.body)['msg'];
         isNavigate = false;
         icon = const Icon(Icons.error, color: Colors.red);
       }
