@@ -5,6 +5,18 @@ import 'package:blogapp/utils/api_urls.dart';
 import 'package:blogapp/utils/configs.dart';
 import 'package:http/http.dart' as http;
 
+Stream<List<Blog>> getBlogStream(String token) async* {
+  try {
+    while (true) {
+      List<Blog> blogs = await getBlog(token);
+      yield blogs;
+      await Future.delayed(const Duration(seconds: 1)); // Polling interval
+    }
+  } catch (e) {
+    yield [];
+  }
+}
+
 Future<List<Blog>> getBlog(token) async{
   Map<String, String> headers = {
     'uid': uId.toString(),

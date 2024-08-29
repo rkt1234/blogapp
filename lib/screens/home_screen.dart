@@ -93,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             Flexible(
-                child: FutureBuilder<List<Blog>>(
-              future: getBlog(widget.token),
+                child: StreamBuilder<List<Blog>>(
+              stream: getBlogStream(widget.token),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
